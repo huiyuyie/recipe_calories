@@ -1,6 +1,6 @@
-# recipe_calory_projecy
+# recipe_calory_project
 
-This is dsc80 final project.
+This website focuses on the analysis 
 
 <iframe
   src="assets/timerange-vs-recipecount.html"
