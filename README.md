@@ -45,8 +45,7 @@ We converted the `tags` column from a string to a list, and counted the number o
 
 ---
 
-### Relevant Columns and Descriptions
-
+## Relevant Columns and Descriptions
 | Column Name   | Description                                                               |
 |:------------- |:------------------------------------------------------------------------- |
 | `name`        | Name/title of the recipe.                                                 |
@@ -55,6 +54,7 @@ We converted the `tags` column from a string to a list, and counted the number o
 | `calories`    | Total number of calories in the recipe.                                   |
 | `avg_rating`  | Average user rating for the recipe (on a 0–5 scale).                      |
 | `n_tags`      | Number of tags assigned to the recipe, reflecting its features or themes. |
+
 
 ### Head of the Cleaned DataFrame
 | name                                 |   minutes | time_range   |   calories |   avg_rating |   n_tags |
