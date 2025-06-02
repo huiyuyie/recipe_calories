@@ -155,13 +155,13 @@ Similarly, the missingness in the `rating` column could also be **NMAR**. Users 
 
 To confirm whether the missingness is truly NMAR, we would need more information about why users chose not to leave a rating or review. For example, if we had access to user engagement data or survey responses, we might be able to distinguish between NMAR and MAR.
 
-The small number of missing values in the `description` column may be due to data entry errors, and is unlikely to be NMAR given the size and nature of the dataset.
-
 **In summary**, there is evidence that at least the `review` and possibly the `rating` columns exhibit **NMAR** missingness, as the likelihood of missingness may depend on the values that are themselves missing.
 
 ### Missingness Dependency
 We choose to analyze the missingness of the `rating` columns since it has the most number of missing values. 
-To investigate whether the missingness of the `rating` column depends on other variables, we performed permutation tests using the absolute mean difference for numerical variables, and total variation distance for categorical variables.
+To investigate whether the missingness of the `rating` column depends on other variables, we performed permutation tests using the following two test statistics:
+  - absolute mean difference for numerical variables, e.g. `minutes`, `n_tags` , etc.
+  - total variation distance for categorical variables. e.g. `time_range`, etc.
 
 We tested the following pairs:
 - `rating` missingness vs. `minutes` (raw preparation time): **p-value = 0.126** (not dependent)
@@ -190,7 +190,7 @@ There is **NO difference** in the mean calories of recipes that take 120~240 min
 **Alternative Hypothesis (H1):**
 There **is a difference** in the mean calories of recipes that take 120~240 minutes to make and those that do not.
 
-**Test Statistice:**
+**Test Statistic:**
 The absolute difference in mean calories between the two groups.
 
 **Significance level:**
@@ -203,6 +203,9 @@ Our permutation test produced a p-value of 0.0
 **Conclusion:**
 Since the p-value 0.0 is below our significant level of 0.05, we REJECT the null hypothesis. This provides strong evidence that the mean calories of recipes that take 120~240 minutes to prepare is different from that of other recipes in our dataset. 
 
+**Justification**
+We used a permutation test here since it does not assume that calories are normally distributed, which makes sence for recipe data that can have a lot of variety and outliers. 
+
 
 ## Framing a Prediction Problem
 
@@ -212,6 +215,11 @@ The response variable is `calories`, this is the total number of calories of a r
 **Why this variable?** Since calories are a core nutritional attribute that users often care about when selecting or comparing recipes. Accurately predicting calories can help users make informed, health-conscious choices or meet dietary goals.
 
 The **metric** we are using is R^2, it is a standard metric for regression tasks. Since it measures the proportion of variance in the target explained by the model, we can interpret the model performance by looking at how close R^2 is to 1. 
+
+**Why R^2 over MAE?** 
+R^2 gives us a sense of how much of the variation in number of calories our model can explain, rather than just how far off our predictions are on average. While MAE tells us the average prediction error, it doesn't tell us how well the model captures the overall patterns in the data.
+
+Justification: At the time of prediction, we only use features that would be known BEFORE the recipe is actually prepared, for example the time range and the number of steps. We don't use any features that depend on the outcome, since thos would not be availablt when users are considering or planning to make the recipe. This ensures our predictions are realistic.
 
 
 ## Baseline Model
