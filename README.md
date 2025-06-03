@@ -57,18 +57,19 @@ We converted the `tags` column from a string to a list, and counted the number o
 
 
 ### Head of the Cleaned DataFrame
-| name                                 |   minutes | time_range   |   calories |   avg_rating |   n_tags |
-|:-------------------------------------|----------:|:-------------|-----------:|-------------:|---------:|
-| 1 brownies in the world    best ever |        40 | 30-60        |      138.4 |            4 |      219 |
-| 1 in canada chocolate chip cookies   |        45 | 30-60        |      595.1 |            5 |      157 |
-| 412 broccoli casserole               |        40 | 30-60        |      194.8 |            5 |      148 |
-| 412 broccoli casserole               |        40 | 30-60        |      194.8 |            5 |      148 |
-| 412 broccoli casserole               |        40 | 30-60        |      194.8 |            5 |      148 |
-| 412 broccoli casserole               |        40 | 30-60        |      194.8 |            5 |      148 |
-| millionaire pound cake               |       120 | 120-240      |      878.3 |            5 |      290 |
-| 2000 meatloaf                        |        90 | 60-120       |      267   |            5 |      150 |
-| 2000 meatloaf                        |        90 | 60-120       |      267   |            5 |      150 |
-| 5 tacos                              |        20 | <30          |      249.4 |            4 |      352 |
+| name                                 | minutes | time_range | calories | avg_rating | n_tags |
+|:-------------------------------------|--------:|:-----------|---------:|-----------:|-------:|
+| 1 brownies in the world    best ever |      40 | 30-60      |    138.4 |          4 |    219 |
+| 1 in canada chocolate chip cookies   |      45 | 30-60      |    595.1 |          5 |    157 |
+| 412 broccoli casserole               |      40 | 30-60      |    194.8 |          5 |    148 |
+| 412 broccoli casserole               |      40 | 30-60      |    194.8 |          5 |    148 |
+| 412 broccoli casserole               |      40 | 30-60      |    194.8 |          5 |    148 |
+| 412 broccoli casserole               |      40 | 30-60      |    194.8 |          5 |    148 |
+| millionaire pound cake               |     120 | 120-240    |    878.3 |          5 |    290 |
+| 2000 meatloaf                        |      90 | 60-120     |      267 |          5 |    150 |
+| 2000 meatloaf                        |      90 | 60-120     |      267 |          5 |    150 |
+| 5 tacos                              |      20 | <30        |    249.4 |          4 |    352 |
+
 
 ## Univariate Analysis
 To understand the characteristics of our dataset, we visualized the distributions of key variables. Below, we display and interpret two important univariate plots.
@@ -204,7 +205,7 @@ Our permutation test produced a p-value of 0.0
 Since the p-value 0.0 is below our significant level of 0.05, we REJECT the null hypothesis. This provides strong evidence that the mean calories of recipes that take 120~240 minutes to prepare is different from that of other recipes in our dataset. 
 
 **Justification**
-We used a permutation test here since it does not assume that calories are normally distributed, which makes sence for recipe data that can have a lot of variety and outliers. 
+We used a permutation test here since it does not assume that calories are normally distributed, which makes sence for recipe data that can have a lot of variety and outliers. Since we are doing a two tailed test, picking the absolute mean difference to be the test statistic is a valid choice. 
 
 
 ## Framing a Prediction Problem
