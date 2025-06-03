@@ -184,6 +184,7 @@ There is strong evidence that the missingness of `rating` is associated with the
 *Figure: Distribution of number of tags for recipes with and without missing ratings.*
 There is a clear difference in the distribution of `n_tags` between recipes with missing ratings and those with available ratings. This visual evidence, together with our permutation test, suggests that rating missingness depends on the number of tags.
 
+---
 
 ## Hypothesis Testing
 To assess whether recipes that take between **120 and 240 minutes** to prepare have different mean calorie counts compared to all other recipes, we performed a permutation test as follows:
@@ -208,11 +209,11 @@ Our permutation test produced a p-value of 0.0
 Since the p-value 0.0 is below our significant level of 0.05, we REJECT the null hypothesis. This provides strong evidence that the mean calories of recipes that take 120~240 minutes to prepare is different from that of other recipes in our dataset. 
 
 **Justification**
-We used a permutation test here since it does not assume that calories are normally distributed, which makes sence for recipe data that can have a lot of variety and outliers. Since we are doing a two tailed test, picking the absolute mean difference to be the test statistic is a valid choice. 
+We choose to do a permutation test since it doesn't require any distributional assumptions about calories, which values can vary a lot and include extreme outliers. We used the  **absolute mean differenc** as our test statistic since we are performing a two tailed test. This approach is well-suited for comparing two groups and provides an intuitive way to access whether the observed difference in calories could be due to random chance. 
 
+---
 
 ## Framing a Prediction Problem
-
 We formulate a **regression problem** to predict the total number of calories in a recipe, given information that would be known before it is prepared.
 
 The response variable is `calories`, this is the total number of calories of a recipe. 
@@ -225,10 +226,33 @@ R^2 gives us a sense of how much of the variation in number of calories our mode
 
 Justification: At the time of prediction, we only use features that would be known BEFORE the recipe is actually prepared, for example the time range and the number of steps. We don't use any features that depend on the outcome, since thos would not be availablt when users are considering or planning to make the recipe. This ensures our predictions are realistic.
 
+--- 
 
 ## Baseline Model
+For our baseline regression model predicting the total number of calories in a recipe, we included two features:
+`time_range` (ordinal / gategorical): the preparation time range, group into ordered bins (<30, 30-60, 60-120, 120-240, 240-480, >480 minutes)
+Since this is a ordinal feature, we used an OrdinalEncoder to encode this feature, ensuring that the ording reflects increasing preparation times.
+`n_steps` (quantitative / numerical): the number of preparation steps for each recipe.
+Since this is a quantitative feature, it's already numerical, so we left it as it is.
+
+We built a pipeline that first applies the appropriate preprocessing to each feature (passing through the numeric one and ordinally encoding the time range), then fits a Ridge regression model.
+
+**Model performance**
+Test set $R^2$: 0.026
+Train set $R^2$: 0.023
+The $R^2$ value represents the proportion of the variance in calorie counts explained by our model. In this baseline, the values are quitle low, indicating that these two features alon DO NOT capture much of the variability in recipe calorie counts. This is not surprising, as calorie content is likely influenced by many other factors not included in the baseline model.
+
+**Is this model "good"?**
+According to the above analysis, this model does not predict calories well and serves to establish a baseline for future models. By adding additional features, or improvving feature engineering, we hope to significanly improve the predictive power. 
+
+--- 
 
 ## Final Model
+
+For our final model, we included two new features:
+
+- **Protein-to-Fat Ratio (`prop_protein_to_fat`)**:
+  This feature is calculated as the ratio of the protein content to the total fat content in a recipe. We chose this because the nutritional balance betweeen protein and fat is often import for calorie content and may distnguish between lighter and richer recipes. In pr
 
 ## Fairness Analysis
 
