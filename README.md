@@ -61,7 +61,7 @@ We converted the `tags` column from a string to a list, and counted the number o
 
 | name                                 | minutes | time_range | calories | avg_rating | n_tags |
 |:-------------------------------------|--------:|:-----------|---------:|-----------:|-------:|
-| 1 brownies in the world    best ever |      40 | 30-60      |    138.4 |          4 |    219 |
+| 1 brownies in the world best ever    |      40 | 30-60      |    138.4 |          4 |    219 |
 | 1 in canada chocolate chip cookies   |      45 | 30-60      |    595.1 |          5 |    157 |
 | 412 broccoli casserole               |      40 | 30-60      |    194.8 |          5 |    148 |
 | 412 broccoli casserole               |      40 | 30-60      |    194.8 |          5 |    148 |
