@@ -46,6 +46,7 @@ We converted the `tags` column from a string to a list, and counted the number o
 ---
 
 ## Relevant Columns and Descriptions
+
 | Column Name   | Description                                                               |
 |:------------- |:------------------------------------------------------------------------- |
 | `name`        | Name/title of the recipe.                                                 |
@@ -57,6 +58,7 @@ We converted the `tags` column from a string to a list, and counted the number o
 
 
 ### Head of the Cleaned DataFrame
+
 | name                                 | minutes | time_range | calories | avg_rating | n_tags |
 |:-------------------------------------|--------:|:-----------|---------:|-----------:|-------:|
 | 1 brownies in the world    best ever |      40 | 30-60      |    138.4 |          4 |    219 |
@@ -69,7 +71,6 @@ We converted the `tags` column from a string to a list, and counted the number o
 | 2000 meatloaf                        |      90 | 60-120     |      267 |          5 |    150 |
 | 2000 meatloaf                        |      90 | 60-120     |      267 |          5 |    150 |
 | 5 tacos                              |      20 | <30        |    249.4 |          4 |    352 |
-
 
 ## Univariate Analysis
 To understand the characteristics of our dataset, we visualized the distributions of key variables. Below, we display and interpret two important univariate plots.
@@ -133,6 +134,7 @@ The scatter plot displays a positive but weak correlation between preparation ti
 
 ## Interesting Aggregates
 To further explore patterns in our dataset, we computed aggregate statistics for several key variables, grouped by preparation time range:
+
 | time_range   |   calories |   avg_rating |   n_tags |
 |:-------------|-----------:|-------------:|---------:|
 | <30          |     327.3  |         4.7  |   256.34 |
@@ -141,6 +143,7 @@ To further explore patterns in our dataset, we computed aggregate statistics for
 | 120-240      |     626.74 |         4.66 |   238.53 |
 | 240-480      |     519.16 |         4.57 |   228.49 |
 | >480         |     515.79 |         4.63 |   228.14 |
+
 *Table: Mean calories, average user rating, and mean number of tags for recipes in each preparation time range.*
 
 This table shows that recipes with longer preparation times tend to have higher average calorie counts, but user ratings remain relatively consistent across all time ranges. Interestingly, recipes that can be prepared in less than 30 minutes tend to have the most tags, possibly reflecting their popularity.
