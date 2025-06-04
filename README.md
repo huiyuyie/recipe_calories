@@ -277,7 +277,19 @@ Our final model showed an improvement in R^2, explaining more variance in the nu
 
 
 ## Fairness Analysis
+To evaluate whether our final model performs equitably across different groups, we performed a fairness analysis by comparing model performance for two groups based on preparation time:
+- **Group X**: Recipes with preparation time ≤ 120 minutes
+- **Group Y**: Recipes with preparation time > 120 minutes
 
+We used the coefficient of determination, R^2, as our evaluation metric since we are working with a regression problem. 
+- **Null Hypothesis ($H_0$):** The model's $R^2$ for recipes in both groups is the same; any observed difference is due to chance. (the model is fair with respect to preparation time)
+- **Alternative Hypothesis ($H_1$):** The model's $R^2$ is different between the two groups, the model may perform bettern for one group than the other. (the model is not fair)
 
+**Test Statistic**: the test statistic we use is the absolute difference in R^2 scores between Group X and Group Y, since we are doing a two side test
 
+**Significance Level**: a signifiance level of 0.05
 
+We performed a permutation test by randomly shuffling the group assignments 1000 times and recalculating the R^2 difference for each permutaion. The observed p-val was 0.002
+
+**Conclusion**:
+The resulting **p-value was 0.002**, which is much smaller than our significance threshold of 0.05. This provides strong evidence that the model's predictive performance is *not* the same for both groups—our model may be less fair with respect to preparation time. This could mean that it predicts calories more accurately for recipes with shorter or longer preparation times, but not both.
