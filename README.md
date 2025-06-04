@@ -230,20 +230,22 @@ Justification: At the time of prediction, we only use features that would be kno
 
 ## Baseline Model
 For our baseline regression model predicting the total number of calories in a recipe, we included two features:
-`time_range` (ordinal / gategorical): the preparation time range, group into ordered bins (<30, 30-60, 60-120, 120-240, 240-480, >480 minutes)
+`time_range` (ordinal / categorical): the preparation time range, group into ordered bins (<30, 30-60, 60-120, 120-240, 240-480, >480 minutes)
 Since this is a ordinal feature, we used an OrdinalEncoder to encode this feature, ensuring that the ording reflects increasing preparation times.
 `n_steps` (quantitative / numerical): the number of preparation steps for each recipe.
 Since this is a quantitative feature, it's already numerical, so we left it as it is.
 
-We built a pipeline that first applies the appropriate preprocessing to each feature (passing through the numeric one and ordinally encoding the time range), then fits a Ridge regression model.
+We built a pipeline that first applies the appropriate preprocessing to each feature (passing through the numeric one and ordinally encoding the time range), then fits a Ridge regression model. We chose Rigde regression because 
 
-**Model performance**
-Test set $R^2$: 0.026
-Train set $R^2$: 0.023
-The $R^2$ value represents the proportion of the variance in calorie counts explained by our model. In this baseline, the values are quitle low, indicating that these two features alon DO NOT capture much of the variability in recipe calorie counts. This is not surprising, as calorie content is likely influenced by many other factors not included in the baseline model.
+add sentence explaining why choose ridge regression, how we used it.
+
+**Model performance** I
+Test set R^2: 0.026
+Train set R^2: 0.023
+The R^2 value represents the proportion of the variance in calorie counts explained by our model. In this baseline, the values are quite low, indicating that these two features alon DO NOT capture much of the variability in recipe calorie counts. This is not surprising, as calorie content is likely influenced by many other factors not included in the baseline model.
 
 **Is this model "good"?**
-According to the above analysis, this model does not predict calories well and serves to establish a baseline for future models. By adding additional features, or improvving feature engineering, we hope to significanly improve the predictive power. 
+According to the above analysis, this model does not predict calories well and serves to establish a baseline for future models. By adding additional features, or improving feature engineering, we hope to significanly improve the predictive power. 
 
 --- 
 
@@ -252,7 +254,27 @@ According to the above analysis, this model does not predict calories well and s
 For our final model, we included two new features:
 
 - **Protein-to-Fat Ratio (`prop_protein_to_fat`)**:
-  This feature is calculated as the ratio of the protein content to the total fat content in a recipe. We chose this because the nutritional balance betweeen protein and fat is often import for calorie content and may distnguish between lighter and richer recipes. In pr
+  This feature is the ratio of protein to total fat in each recipe. We chose it since, nutritionally, the balance between protein and fat significantly affects the caloric desity and healthiness of a recipe. Recipes with higher protein-to-fat ratio are often considered healthier and may have lower total calories.
+
+- **Proportion of Sugar (`prop_sugar`)**
+  We applied a binarizer to mark whether the number of sugar of a recipe exceeds a threshold. We chose this to be an additional feature since it is one of the main contributor to calories.
+
+**Modeling Algorithm**
+We performed Ridge Regression for our final model, which is a regulaized linear regression algorithem that penalizes larger coefficients, helping to reduce overfitting.
+
+**Hyperparameter used**
+- `alpha`: This parameter controls the regularization strength. We searched over [0.01, 0.1, 1.0, 10.0, 100.0], which is a log-scale grid that covers a wide range of possible regularization values. Using a range that spans multiple magnitudes helps ensure that we find an appropriate balance between bias and variance. If `alpha` is too low, the model may overfit the training data; if `alpha` is too high, the model may underfit and ignore important signals.
+
+- We used GridSearchCV to search for the bset value of `alpha` based on 5-fold cross validation. This method splits the training data into five parts, trains the model on four and validates on the fifth, repeating this process and average the results. 
+
+- The metric we used here is `neg_mean_squared_error`, since GridSearchCV always tries to maximize the scoring metric, and the lower MSE is, the better predictions were made. To make this compatible, using the negative of MSE that will be maximized here is equivalent to minimizing MSE. By using the negative of MSE, GridSearchCV effectively finds the model with the lowest MSE, which means the best regression performance.
+
+**Results of the Final Model**
+R^2 (test set): 0.043
+R^2 (train set): 0.039
+
+Our final model showed an improvement in R^2, explaining more variance in the number of calories in recipes. This shows that adding features makes the model better at predicting calories. However, since R^2 is still very far away from 1, the model is not doing a good job at explaining the variance though there is improvement.
+
 
 ## Fairness Analysis
 
