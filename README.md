@@ -146,7 +146,7 @@ To further explore patterns in our dataset, we computed aggregate statistics for
 
 *Table: Mean calories, average user rating, and mean number of tags for recipes in each preparation time range.*
 
-This table shows that recipes with longer preparation times tend to have higher average calorie counts, but user ratings remain relatively consistent across all time ranges. Interestingly, recipes that can be prepared in less than 30 minutes tend to have the most tags, possibly reflecting their popularity.
+This group-by table is valuable becuase it reveals how key recipe attributes vary with preparation time, allowing us to compare trends across differencet categories. This table shows that recipes with longer preparation times tend to have higher average calorie counts, but user ratings remain relatively consistent across all time ranges. Interestingly, recipes that can be prepared in less than 30 minutes tend to have the most tags, possibly reflecting their popularity. Summarizing the data in this way helps us uncover meaningful patterbs that would be difficult to observe by looking at individual recipes alone.
 
 
 ## Assessment of Missingness
@@ -209,7 +209,7 @@ Our permutation test produced a p-value of 0.0
 Since the p-value 0.0 is below our significant level of 0.05, we REJECT the null hypothesis. This provides strong evidence that the mean calories of recipes that take 120~240 minutes to prepare is different from that of other recipes in our dataset. 
 
 **Justification**
-We choose to do a permutation test since it doesn't require any distributional assumptions about calories, which values can vary a lot and include extreme outliers. We used the  **absolute mean differenc** as our test statistic since we are performing a two tailed test. This approach is well-suited for comparing two groups and provides an intuitive way to access whether the observed difference in calories could be due to random chance. 
+We choose to do a permutation test since it doesn't require any distributional assumptions about calories.This is especially important given that calorie values can be highly skewed and contain outliers. he method is robust, intuitive, and well-suited for comparing means between two groups when traditional parametric assumptions may not hold. We used the  **absolute mean differenc** as our test statistic since we are performing a two tailed test. This approach is well-suited for comparing two groups and provides an intuitive way to access whether the observed difference in calories could be due to random chance. 
 
 ---
 
