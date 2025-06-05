@@ -154,13 +154,11 @@ This group-by table is valuable becuase it reveals how key recipe attributes var
 After inspecting missing values across all columns, we identified that the `description`, `rating`, and `review` columns have notable amounts of missing data. There are 114 missing descriptions, 15,036 missing ratings, and 58 missing reviews. There are also 2,777 missing average ratings, but we are not analyzing this column since its missingness is directly related to the missingness of ratings.
 
 ### NMAR Analysis
-It is possible that the missingness in the `review` column is **NMAR (Not Missing At Random)**. Users may be less likely to leave a review for recipes they did not enjoy, or may only leave a review if they had an unusually positive or negative experience. In this case, the probability of a missing value in the `review` column would depend on the unobserved review itself.
+It is possible that the missingness in the `review` column is **NMAR (Not Missing At Random)**. Users may be less likely to leave a review for recipes they did not enjoy, or may only leave a review if they had an unusually positive or negative experience. In both cases, the probability of a missing value in the `review` column would depend on the unobserved review itself.
 
-Similarly, the missingness in the `rating` column could also be **NMAR**. Users may be more likely to omit ratings for recipes they did not like or for which they had no strong opinion. Thus, the missingness could depend on the unobserved (missing) rating.
+To confirm whether the missingness is truly NMAR, we would need more information about why users chose not to leave a rating or review. Additional data, like user engagement logs, explicit feedback about why a review was left blank, or follow-up surveys, could help clarify whether the missingness is actually related to the underlying, unobserved review value, or if it could be explained by observed factors which would make it Missing At Random. 
 
-To confirm whether the missingness is truly NMAR, we would need more information about why users chose not to leave a rating or review. For example, if we had access to user engagement data or survey responses, we might be able to distinguish between NMAR and MAR.
-
-**In summary**, there is evidence that at least the `review` and possibly the `rating` columns exhibit **NMAR** missingness, as the likelihood of missingness may depend on the values that are themselves missing.
+**In summary**, there is evidence that at least the `review` column exhibit **NMAR** missingness, as the likelihood of missingness may depend on the values that are themselves missing.
 
 ### Missingness Dependency
 We choose to analyze the missingness of the `rating` columns since it has the most number of missing values. 
