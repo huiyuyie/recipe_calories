@@ -129,8 +129,7 @@ The bar chart above shows that recipes with longer preparation times tend to hav
 ></iframe>
 *Figure: Scatter plot of calories versus preparation time for individual recipes, with regression trendline.*
 
-The scatter plot displays a positive but weak correlation between preparation time and calories, as indicated by the upward trendline. While there are many recipes with both low and high calorie counts across all preparation times, some of the longest recipes do appear to be more calorie-dense.
-
+The scatter plot displays a positive but weak correlation between preparation time and calories. While there are many recipes with both low and high calorie counts across all preparation times, some of the longest recipes do appear to be more calorie-dense.
 ---
 
 ## Interesting Aggregates
