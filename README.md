@@ -6,7 +6,7 @@ __
 
 ## INTRODUCTION
 
-This project investigates the **Recipes and Ratings** dataset from [food.com](https://www.food.com/), consisting of thousands of recipes and user ratings since 2008. After merging and cleaning the raw data, our final working dataset constains **234429 rows**.
+This project investigates the **Recipes and Ratings** dataset from [food.com](https://www.food.com/), consisting of thousands of recipes and user ratings since 2008. After merging and cleaning the raw data, our final working dataset contains **234429 rows**.
 
 ### Research Question
 
@@ -14,10 +14,10 @@ This project investigates the **Recipes and Ratings** dataset from [food.com](ht
 
 ---
 
-This question is important because understanding the relationship between cooking time and number of calories can help home cooks make better dietary decisions and optimize their meal plannings. For instance, people may asusme that recipes which takes longer to make are more indulgent, while quick recipes might be healthier. By analyzing this relationship, we can provide insights for users aiming for specific nutritional or time goals.
+This question is important because understanding the relationship between cooking time and number of calories can help home cooks make better dietary decisions and optimize their meal plannings. For instance, people may assume that recipes which takes longer to make are more indulgent, while quick recipes might be healthier. By analyzing this relationship, we can provide insights for users aiming for specific nutritional or time goals.
 
 **Why this question matters?**
- Millions of people choose recipes based on preparation time and perceived healthiness. If there is a significant association between cooking time and the number of calories, users can make more informed choices according to their time constraints and nutritional goals. This analysis can also supplort food bloggers, diaticians, and recipe platforms in designing and recommeding recipes that meet different users' needs.
+ Millions of people choose recipes based on preparation time and perceived healthiness. If there is a significant association between cooking time and the number of calories, users can make more informed choices according to their time constraints and nutritional goals. This analysis can also support food bloggers, dietitians, and recipe platforms in designing and recommeding recipes that meet different users' needs.
 
 
 ## Data Cleaning and Exploratory Data Analysis
@@ -147,7 +147,7 @@ To further explore patterns in our dataset, we computed aggregate statistics for
 
 *Table: Mean calories, average user rating, and mean number of tags for recipes in each preparation time range.*
 
-This group-by table is valuable becuase it reveals how key recipe attributes vary with preparation time, allowing us to compare trends across differencet categories. This table shows that recipes with longer preparation times tend to have higher average calorie counts, but user ratings remain relatively consistent across all time ranges. Interestingly, recipes that can be prepared in less than 30 minutes tend to have the most tags, possibly reflecting their popularity. Summarizing the data in this way helps us uncover meaningful patterbs that would be difficult to observe by looking at individual recipes alone.
+This group-by table is valuable because it reveals how key recipe attributes vary with preparation time, allowing us to compare trends across different categories. This table shows that recipes with longer preparation times tend to have higher average calorie counts, but user ratings remain relatively consistent across all time ranges. Interestingly, recipes that can be prepared in less than 30 minutes tend to have the most tags, possibly reflecting their popularity. Summarizing the data in this way helps us uncover meaningful patterbs that would be difficult to observe by looking at individual recipes alone.
 
 
 ## Assessment of Missingness
@@ -163,7 +163,7 @@ To confirm whether the missingness is truly NMAR, we would need more information
 ### Missingness Dependency
 We choose to analyze the missingness of the `rating` columns since it has the most number of missing values. 
 To investigate whether the missingness of the `rating` column depends on other variables, we performed permutation tests using the following two test statistics:
-  - absolute mean difference for numerical variables, e.g. `minutes`, `n_tags` , etc.
+  - absolute mean difference for numerical variables, e.g. `minutes`, `n_tags`, etc.
   - total variation distance for categorical variables. e.g. `time_range`, etc.
 
 We tested the following pairs:
@@ -208,7 +208,7 @@ Our permutation test produced a p-value of 0.0
 Since the p-value 0.0 is below our significant level of 0.05, we REJECT the null hypothesis. This provides strong evidence that the mean calories of recipes that take 120~240 minutes to prepare is different from that of other recipes in our dataset. 
 
 **Justification**
-We choose to do a permutation test since it doesn't require any distributional assumptions about calories.This is especially important given that calorie values can be highly skewed and contain outliers. he method is robust, intuitive, and well-suited for comparing means between two groups when traditional parametric assumptions may not hold. We used the  **absolute mean differenc** as our test statistic since we are performing a two tailed test. This approach is well-suited for comparing two groups and provides an intuitive way to access whether the observed difference in calories could be due to random chance. 
+We choose to do a permutation test since it doesn't require any distributional assumptions about calories.This is especially important given that calorie values can be highly skewed and contain outliers. he method is robust, intuitive, and well-suited for comparing means between two groups when traditional parametric assumptions may not hold. We used the  **absolute mean difference** as our test statistic since we are performing a two tailed test. This approach is well-suited for comparing two groups and provides an intuitive way to access whether the observed difference in calories could be due to random chance. 
 
 ---
 
@@ -223,18 +223,18 @@ The **metric** we are using is R^2, it is a standard metric for regression tasks
 **Why R^2 over MAE?** 
 R^2 gives us a sense of how much of the variation in number of calories our model can explain, rather than just how far off our predictions are on average. While MAE tells us the average prediction error, it doesn't tell us how well the model captures the overall patterns in the data.
 
-Justification: At the time of prediction, we only use features that would be known BEFORE the recipe is actually prepared, for example the time range and the number of steps. We don't use any features that depend on the outcome, since thos would not be availablt when users are considering or planning to make the recipe. This ensures our predictions are realistic.
+Justification: At the time of prediction, we only use features that would be known BEFORE the recipe is actually prepared, for example the time range and the number of steps. We don't use any features that depend on the outcome, since those would not be available when users are considering or planning to make the recipe. This ensures our predictions are realistic.
 
 --- 
 
 ## Baseline Model
 For our baseline regression model predicting the total number of calories in a recipe, we included two features:
 `time_range` (ordinal / categorical): the preparation time range, group into ordered bins (<30, 30-60, 60-120, 120-240, 240-480, >480 minutes)
-Since this is a ordinal feature, we used an OrdinalEncoder to encode this feature, ensuring that the ording reflects increasing preparation times.
+Since this is a ordinal feature, we used an OrdinalEncoder to encode this feature, ensuring that the ordering reflects increasing preparation times.
 `n_steps` (quantitative / numerical): the number of preparation steps for each recipe.
 Since this is a quantitative feature, it's already numerical, so we left it as it is.
 
-We built a pipeline that first applies the appropriate preprocessing to each feature (passing through the numeric one and ordinally encoding the time range), then fits a Ridge regression model. We chose Rigde regression over simple linear regression since it can handle multicollinearity and prevent overfitting. Recipe data often includes highly correlated features, such as ingredient proportions and preparation steps, which can cause instability in linear models. Ridge adds L2 regularization performance, making it more suitable for prediction tasks where robustness matters more than interpretability. 
+We built a pipeline that first applies the appropriate preprocessing to each feature (passing through the numeric one and ordinally encoding the time range), then fits a Ridge regression model. We chose Ridge regression over simple linear regression since it can handle multicollinearity and prevent overfitting. Recipe data often includes highly correlated features, such as ingredient proportions and preparation steps, which can cause instability in linear models. Ridge adds L2 regularization performance, making it more suitable for prediction tasks where robustness matters more than interpretability. 
 
 **Model performance** I
 Test set R^2: 0.026
@@ -251,7 +251,7 @@ According to the above analysis, this model does not predict calories well and s
 For our final model, we included two new features:
 
 - **Protein-to-Fat Ratio (`prop_protein_to_fat`)**:
-  This feature is the ratio of protein to total fat in each recipe. We chose it since, nutritionally, the balance between protein and fat significantly affects the caloric desity and healthiness of a recipe. Recipes with higher protein-to-fat ratio are often considered healthier and may have lower total calories. By including this feature, our model can better capture the nutritional quality and caloric density that simpler features may miss.
+  This feature is the ratio of protein to total fat in each recipe. We chose it since, nutritionally, the balance between protein and fat significantly affects the caloric denity and healthiness of a recipe. Recipes with higher protein-to-fat ratio are often considered healthier and may have lower total calories. By including this feature, our model can better capture the nutritional quality and caloric density that simpler features may miss.
 
 - **Proportion of Sugar (`prop_sugar`)**
   We applied a binarizer to mark whether the number of sugar of a recipe exceeds a threshold. We chose this to be an additional feature since it is one of the main contributor to calories. Including a feature to highlight high-sugar recipes allows the model to account for non-linear impact of sugar on total calories, thus improving prediction accuracy for both typical and exceptionally sweet recipes.
@@ -259,7 +259,7 @@ For our final model, we included two new features:
 Both features were chosen *before* observing model performance, based on a principled understanding of how ingredients affect calories and why certain variables might capture important variation in the outcome.
 
 **Modeling Algorithm**
-We performed Ridge Regression for our final model, which is a regulaized linear regression algorithem that penalizes larger coefficients, helping to reduce overfitting.
+We performed Ridge Regression for our final model, which is a regularized linear regression algorithm that penalizes larger coefficients, helping to reduce overfitting.
 
 **Hyperparameter used**
 - `alpha`: This parameter controls the regularization strength. We searched over [0.01, 0.1, 1.0, 10.0, 100.0], which is a log-scale grid that covers a wide range of possible regularization values. Using a range that spans multiple magnitudes helps ensure that we find an appropriate balance between bias and variance. If `alpha` is too low, the model may overfit the training data; if `alpha` is too high, the model may underfit and ignore important signals.
@@ -282,12 +282,12 @@ To evaluate whether our final model performs equitably across different groups, 
 - **Group Y**: Recipes with preparation time > 120 minutes
 
 We used the coefficient of determination, R^2, as our evaluation metric since we are working with a regression problem. 
-- **Null Hypothesis ($H_0$):** The model's $R^2$ for recipes in both groups is the same; any observed difference is due to chance. (the model is fair with respect to preparation time)
-- **Alternative Hypothesis ($H_1$):** The model's $R^2$ is different between the two groups, the model may perform bettern for one group than the other. (the model is not fair)
+- **Null Hypothesis (H0):** The model's R^2 for recipes in both groups is the same; any observed difference is due to chance. (the model is fair with respect to preparation time)
+- **Alternative Hypothesis (H1):** The model's R^2 is different between the two groups, the model may perform better for one group than the other. (the model is not fair)
 
 **Test Statistic**: the test statistic we use is the absolute difference in R^2 scores between Group X and Group Y, since we are doing a two side test
 
-**Significance Level**: a signifiance level of 0.05
+**Significance Level**: a significance level of 0.05
 
 We performed a permutation test by randomly shuffling the group assignments 1000 times and recalculating the R^2 difference for each permutaion. The observed p-val was 0.002
 
