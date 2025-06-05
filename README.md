@@ -235,9 +235,7 @@ Since this is a ordinal feature, we used an OrdinalEncoder to encode this featur
 `n_steps` (quantitative / numerical): the number of preparation steps for each recipe.
 Since this is a quantitative feature, it's already numerical, so we left it as it is.
 
-We built a pipeline that first applies the appropriate preprocessing to each feature (passing through the numeric one and ordinally encoding the time range), then fits a Ridge regression model. We chose Rigde regression because 
-
-add sentence explaining why choose ridge regression, how we used it.
+We built a pipeline that first applies the appropriate preprocessing to each feature (passing through the numeric one and ordinally encoding the time range), then fits a Ridge regression model. We chose Rigde regression over simple linear regression since it can handle multicollinearity and prevent overfitting. Recipe data often includes highly correlated features, such as ingredient proportions and preparation steps, which can cause instability in linear models. Ridge adds L2 regularization performance, making it more suitable for prediction tasks where robustness matters more than interpretability. 
 
 **Model performance** I
 Test set R^2: 0.026
@@ -254,10 +252,12 @@ According to the above analysis, this model does not predict calories well and s
 For our final model, we included two new features:
 
 - **Protein-to-Fat Ratio (`prop_protein_to_fat`)**:
-  This feature is the ratio of protein to total fat in each recipe. We chose it since, nutritionally, the balance between protein and fat significantly affects the caloric desity and healthiness of a recipe. Recipes with higher protein-to-fat ratio are often considered healthier and may have lower total calories.
+  This feature is the ratio of protein to total fat in each recipe. We chose it since, nutritionally, the balance between protein and fat significantly affects the caloric desity and healthiness of a recipe. Recipes with higher protein-to-fat ratio are often considered healthier and may have lower total calories. By including this feature, our model can better capture the nutritional quality and caloric density that simpler features may miss.
 
 - **Proportion of Sugar (`prop_sugar`)**
-  We applied a binarizer to mark whether the number of sugar of a recipe exceeds a threshold. We chose this to be an additional feature since it is one of the main contributor to calories.
+  We applied a binarizer to mark whether the number of sugar of a recipe exceeds a threshold. We chose this to be an additional feature since it is one of the main contributor to calories. Including a feature to highlight high-sugar recipes allows the model to account for non-linear impact of sugar on total calories, thus improving prediction accuracy for both typical and exceptionally sweet recipes.
+
+Both features were chosen *before* observing model performance, based on a principled understanding of how ingredients affect calories and why certain variables might capture important variation in the outcome.
 
 **Modeling Algorithm**
 We performed Ridge Regression for our final model, which is a regulaized linear regression algorithem that penalizes larger coefficients, helping to reduce overfitting.
@@ -275,6 +275,7 @@ R^2 (train set): 0.039
 
 Our final model showed an improvement in R^2, explaining more variance in the number of calories in recipes. This shows that adding features makes the model better at predicting calories. However, since R^2 is still very far away from 1, the model is not doing a good job at explaining the variance though there is improvement.
 
+---
 
 ## Fairness Analysis
 To evaluate whether our final model performs equitably across different groups, we performed a fairness analysis by comparing model performance for two groups based on preparation time:
