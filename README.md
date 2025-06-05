@@ -1,5 +1,6 @@
 # An Analysis of Recipe Preparation Time and Calorie Content
 _A Data Science Project using food.com Recipes_
+__
 
 ---
 
@@ -294,3 +295,13 @@ We performed a permutation test by randomly shuffling the group assignments 1000
 
 **Conclusion**:
 The resulting **p-value was 0.002**, which is much smaller than our significance threshold of 0.05. This provides strong evidence that the model's predictive performance is *not* the same for both groups—our model may be less fair with respect to preparation time. This could mean that it predicts calories more accurately for recipes with shorter or longer preparation times, but not both.
+
+
+## Wrapping Up
+In this project, we set out to understand how recipe preparation time relates to calorie content. We cleaned and explored a large dataset, finding that recipes taking longer to make usually pack more calories, while user ratings are pretty steady no matter the time required.
+
+We built a baseline calorie prediction model and then improved it with features inspired by nutrition—like the protein-to-fat ratio and a high/low sugar flag. While these additions helped a bit, predicting calories from recipe info alone turned out to be quite tough, as shown by our modest R^2 scores.
+
+Our fairness check also showed the model doesn’t perform equally well for all types of recipes—so there’s still work to do if we want to make predictions that are both accurate and fair.
+
+All in all, this project highlighted the value of smart feature engineering, careful testing, and thinking about fairness. There’s room to improve, but we’ve taken some solid steps toward making recipe recommendations that are both useful and mindful of users’ needs.
