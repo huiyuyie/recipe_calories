@@ -98,9 +98,10 @@ Most recipes on food.com can be prepared in under 60 minutes, as shown by the co
   height="600"
   frameborder="0"
 ></iframe>
-*Figure: Scatter plot of recipe calorie counts by recipe index.*
+*Figure: Histogram showing the distribution of calories across all recipes in the dataset.*
 
-The scatter plot above shows the spread of calories across all recipes in our dataset. Most recipes cluster in the lower-to-moderate calorie range, but we can observe a few recipes with extremely high calorie counts. These outliers may represent more indulgent or special-occasion dishes, while the dense cluster in the lower range reflects the prevalence of healthier or more everyday recipes.
+The histogram above shows the distribution of calorie counts for all recipes. Most recipes fall in the lower calorie ranges, with the majority having fewer than 1,000 calories. The distribution is right-skewed, meaning there are many recipes with moderate calorie counts and relatively few recipes with extremely high calorie counts (the outliers on the far right). This pattern suggests that most recipes are in a typical, everyday calorie range, while only a small number are highly indulgent or special-occasion dishes. Visualizing the data this way makes it much easier to see where most recipes cluster and highlights the presence of a long tail of high-calorie recipes.
+
 
 ## Bivariate Analysis
 To investigate the relationship between recipe preparation time and calorie content, we created several bivariate visualizations.
@@ -128,7 +129,6 @@ The bar chart above shows that recipes with longer preparation times tend to hav
   frameborder="0"
 ></iframe>
 *Figure: Scatter plot of calories versus preparation time for individual recipes, with regression trendline.*
-
 The scatter plot displays a positive but weak correlation between preparation time and calories. While there are many recipes with both low and high calorie counts across all preparation times, some of the longest recipes do appear to be more calorie-dense.
 ---
 
@@ -180,6 +180,7 @@ There is strong evidence that the missingness of `rating` is associated with the
   frameborder="0"
 ></iframe>
 *Figure: Distribution of number of tags for recipes with and without missing ratings.*
+
 There is a clear difference in the distribution of `n_tags` between recipes with missing ratings and those with available ratings. This visual evidence, together with our permutation test, suggests that rating missingness depends on the number of tags.
 
 ---
@@ -188,7 +189,7 @@ There is a clear difference in the distribution of `n_tags` between recipes with
 To assess whether recipes that take between **120 and 240 minutes** to prepare have different mean calorie counts compared to all other recipes, we performed a permutation test as follows:
 
 **Null Hypothesis (H0):**
-There is **NO difference** in the mean calories of recipes that take 120~240 minutes to make.
+There is **NO difference** in the mean calories of recipes that take 120~240 minutes to make and those that do not.
 
 **Alternative Hypothesis (H1):**
 There **is a difference** in the mean calories of recipes that take 120~240 minutes to make and those that do not.
@@ -207,7 +208,7 @@ Our permutation test produced a p-value of 0.0
 Since the p-value 0.0 is below our significant level of 0.05, we REJECT the null hypothesis. This provides strong evidence that the mean calories of recipes that take 120~240 minutes to prepare is different from that of other recipes in our dataset. 
 
 **Justification**
-We choose to do a permutation test since it doesn't require any distributional assumptions about calories.This is especially important given that calorie values can be highly skewed and contain outliers. he method is robust, intuitive, and well-suited for comparing means between two groups when traditional parametric assumptions may not hold. We used the  **absolute mean difference** as our test statistic since we are performing a two tailed test. This approach is well-suited for comparing two groups and provides an intuitive way to access whether the observed difference in calories could be due to random chance. 
+We choose to do a permutation test since it doesn't require any distributional assumptions about calories.This is especially important given that calorie values can be highly skewed and contain outliers. The method is robust, intuitive, and well-suited for comparing means between two groups when traditional parametric assumptions may not hold. We used the  **absolute mean difference** as our test statistic since we are performing a two tailed test. This approach is well-suited for comparing two groups and provides an intuitive way to access whether the observed difference in calories could be due to random chance. 
 
 ---
 
