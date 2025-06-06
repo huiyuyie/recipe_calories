@@ -262,7 +262,7 @@ Both features were chosen *before* observing model performance, based on a princ
 We performed Ridge Regression for our final model, which is a regularized linear regression algorithm that penalizes larger coefficients, helping to reduce overfitting.
 
 **Hyperparameter used**
-- `alpha`: This parameter controls the regularization strength. We searched over [0.01, 0.1, 1.0, 10.0, 100.0], which is a log-scale grid that covers a wide range of possible regularization values. Using a range that spans multiple magnitudes helps ensure that we find an appropriate balance between bias and variance. If `alpha` is too low, the model may overfit the training data; if `alpha` is too high, the model may underfit and ignore important signals.
+- `alpha`: This parameter controls the regularization strength. We searched over [0.01, 0.1, 1.0, 10.0, 100.0], which is a log-scale grid that covers a wide range of possible regularization values. Using a range that spans multiple magnitudes helps ensure that we find an appropriate balance between bias and variance. If `alpha` is too low, the model may overfit the training data; if `alpha` is too high, the model may underfit and ignore important signals. **Best Params: {'model__alpha': 10.0}** 
 
 - We used GridSearchCV to search for the best value of `alpha` based on 5-fold cross validation. This method splits the training data into five parts, trains the model on four and validates on the fifth, repeating this process and average the results. 
 
