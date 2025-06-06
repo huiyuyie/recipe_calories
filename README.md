@@ -8,6 +8,21 @@ __
 
 This project investigates the **Recipes and Ratings** dataset from [food.com](https://www.food.com/), consisting of thousands of recipes and user ratings since 2008. After merging and cleaning the raw data, our final working dataset contains **234429 rows**.
 
+## Relevant Columns and Descriptions
+
+| Column Name        | Description                                                               |
+|:------------------ |:------------------------------------------------------------------------- |
+| `name`             | Name/title of the recipe.                                                 |
+| `minutes`          | Preparation time (in minutes) required for the recipe.                    |
+| `time_range`       | Categorical bin of `minutes` (e.g., <30, 30-60, 60-120, etc.).            |
+| `calories`         | Total number of calories in the recipe.                                   |
+| `avg_rating`       | Average user rating for the recipe (on a 0–5 scale).                      |
+| `n_tags`           | Number of tags assigned to the recipe, reflecting its features or themes. |
+| `n_steps`          | Number of steps in each recipe.                                           |
+| `prop_protein`     | Proportion of protein in each recipe.                                     |
+| `prop_total_fat`   | Proportion of total fat in each recipe.                                   |
+| `prop_sugar`       | Proportion of sugar in each recipe.                                       |
+
 ### Research Question
 
 **Whether the time taken to make a recipe affect the number of calories?**
@@ -46,32 +61,20 @@ We converted the `tags` column from a string to a list, and counted the number o
 
 ---
 
-## Relevant Columns and Descriptions
-
-| Column Name   | Description                                                               |
-|:------------- |:------------------------------------------------------------------------- |
-| `name`        | Name/title of the recipe.                                                 |
-| `minutes`     | Preparation time (in minutes) required for the recipe.                    |
-| `time_range`  | Categorical bin of `minutes` (e.g., <30, 30-60, 60-120, etc.)             |
-| `calories`    | Total number of calories in the recipe.                                   |
-| `avg_rating`  | Average user rating for the recipe (on a 0–5 scale).                      |
-| `n_tags`      | Number of tags assigned to the recipe, reflecting its features or themes. |
-
-
 ### Head of the Cleaned DataFrame
 
-| name                                 | minutes | time_range | calories | avg_rating | n_tags |
-|:-------------------------------------|--------:|:-----------|---------:|-----------:|-------:|
-| 1 brownies in the world best ever    |      40 | 30-60      |    138.4 |          4 |    219 |
-| 1 in canada chocolate chip cookies   |      45 | 30-60      |    595.1 |          5 |    157 |
-| 412 broccoli casserole               |      40 | 30-60      |    194.8 |          5 |    148 |
-| 412 broccoli casserole               |      40 | 30-60      |    194.8 |          5 |    148 |
-| 412 broccoli casserole               |      40 | 30-60      |    194.8 |          5 |    148 |
-| 412 broccoli casserole               |      40 | 30-60      |    194.8 |          5 |    148 |
-| millionaire pound cake               |     120 | 120-240    |    878.3 |          5 |    290 |
-| 2000 meatloaf                        |      90 | 60-120     |      267 |          5 |    150 |
-| 2000 meatloaf                        |      90 | 60-120     |      267 |          5 |    150 |
-| 5 tacos                              |      20 | <30        |    249.4 |          4 |    352 |
+| name                                 |   minutes | time_range   |   calories |   avg_rating |   n_tags |   n_steps |   prop_protein |   prop_total_fat |   prop_sugar |
+|:-------------------------------------|----------:|:-------------|-----------:|-------------:|---------:|----------:|---------------:|-----------------:|-------------:|
+| 1 brownies in the world    best ever |        40 | 30-60        |      138.4 |            4 |      219 |        10 |              3 |               10 |           50 |
+| 1 in canada chocolate chip cookies   |        45 | 30-60        |      595.1 |            5 |      157 |        12 |             13 |               46 |          211 |
+| 412 broccoli casserole               |        40 | 30-60        |      194.8 |            5 |      148 |         6 |             22 |               20 |            6 |
+| 412 broccoli casserole               |        40 | 30-60        |      194.8 |            5 |      148 |         6 |             22 |               20 |            6 |
+| 412 broccoli casserole               |        40 | 30-60        |      194.8 |            5 |      148 |         6 |             22 |               20 |            6 |
+| 412 broccoli casserole               |        40 | 30-60        |      194.8 |            5 |      148 |         6 |             22 |               20 |            6 |
+| millionaire pound cake               |       120 | 120-240      |      878.3 |            5 |      290 |         7 |             20 |               63 |          326 |
+| 2000 meatloaf                        |        90 | 60-120       |      267   |            5 |      150 |        17 |             29 |               30 |           12 |
+| 2000 meatloaf                        |        90 | 60-120       |      267   |            5 |      150 |        17 |             29 |               30 |           12 |
+| 5 tacos                              |        20 | <30          |      249.4 |            4 |      352 |         5 |             39 |               26 |            4 |
 
 ## Univariate Analysis
 To understand the characteristics of our dataset, we visualized the distributions of key variables. Below, we display and interpret two important univariate plots.
