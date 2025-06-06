@@ -1,5 +1,5 @@
 # An Analysis of Recipe Preparation Time and Calorie Content
-_A Data Science Project using food.com Recipes_
+_A Data Science Project using food.com Recipes_ by Huiyu Yie, Song Su
 __
 
 ---
