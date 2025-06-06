@@ -264,7 +264,7 @@ We performed Ridge Regression for our final model, which is a regularized linear
 **Hyperparameter used**
 - `alpha`: This parameter controls the regularization strength. We searched over [0.01, 0.1, 1.0, 10.0, 100.0], which is a log-scale grid that covers a wide range of possible regularization values. Using a range that spans multiple magnitudes helps ensure that we find an appropriate balance between bias and variance. If `alpha` is too low, the model may overfit the training data; if `alpha` is too high, the model may underfit and ignore important signals.
 
-- We used GridSearchCV to search for the bset value of `alpha` based on 5-fold cross validation. This method splits the training data into five parts, trains the model on four and validates on the fifth, repeating this process and average the results. 
+- We used GridSearchCV to search for the best value of `alpha` based on 5-fold cross validation. This method splits the training data into five parts, trains the model on four and validates on the fifth, repeating this process and average the results. 
 
 - The metric we used here is `neg_mean_squared_error`, since GridSearchCV always tries to maximize the scoring metric, and the lower MSE is, the better predictions were made. To make this compatible, using the negative of MSE that will be maximized here is equivalent to minimizing MSE. By using the negative of MSE, GridSearchCV effectively finds the model with the lowest MSE, which means the best regression performance.
 
@@ -281,15 +281,15 @@ To evaluate whether our final model performs equitably across different groups, 
 - **Group X**: Recipes with preparation time ≤ 120 minutes
 - **Group Y**: Recipes with preparation time > 120 minutes
 
-We used the coefficient of determination, R^2, as our evaluation metric since we are working with a regression problem. 
-- **Null Hypothesis (H0):** The model's R^2 for recipes in both groups is the same; any observed difference is due to chance. (the model is fair with respect to preparation time)
-- **Alternative Hypothesis (H1):** The model's R^2 is different between the two groups, the model may perform better for one group than the other. (the model is not fair)
+We used the coefficient of determination, RMSE, as our evaluation metric since we are working with a regression problem. 
+- **Null Hypothesis (H0):** The model's RMSE for recipes in both groups is the same; any observed difference is due to chance. (the model is fair with respect to preparation time)
+- **Alternative Hypothesis (H1):** The model's RMSE is different between the two groups, the model may perform better for one group than the other. (the model is not fair)
 
-**Test Statistic**: the test statistic we use is the absolute difference in R^2 scores between Group X and Group Y, since we are doing a two side test
+**Test Statistic**: the test statistic we use is the absolute difference in mean RMSE scores between Group X and Group Y, since we are doing a two side test
 
 **Significance Level**: a significance level of 0.05
 
-We performed a permutation test by randomly shuffling the group assignments 1000 times and recalculating the R^2 difference for each permutaion. The observed p-val was 0.002
+We performed a permutation test by randomly shuffling the group assignments 1000 times and recalculating the RMSE difference for each permutaion. The observed p-val was 0.002
 
 **Conclusion**:
 The resulting **p-value was 0.002**, which is much smaller than our significance threshold of 0.05. This provides strong evidence that the model's predictive performance is *not* the same for both groups—our model may be less fair with respect to preparation time. This could mean that it predicts calories more accurately for recipes with shorter or longer preparation times, but not both.
