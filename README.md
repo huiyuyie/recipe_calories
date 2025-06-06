@@ -292,7 +292,7 @@ We used the coefficient of determination, RMSE, as our evaluation metric since w
 We performed a permutation test by randomly shuffling the group assignments 1000 times and recalculating the RMSE difference for each permutaion. The observed p-val was 0.002
 
 **Conclusion**:
-The resulting **p-value was 0.002**, which is much smaller than our significance threshold of 0.05. This provides strong evidence that the model's predictive performance is *not* the same for both groups—our model may be less fair with respect to preparation time. This could mean that it predicts calories more accurately for recipes with shorter or longer preparation times, but not both.
+The resulting **p-value was 0.003**, which is much smaller than our significance threshold of 0.05. This provides strong evidence that the model's predictive performance is *not* the same for both groups—our model may be less fair with respect to preparation time. This could mean that it predicts calories more accurately for recipes with shorter or longer preparation times, but not both.
 
 
 ## Wrapping Up
